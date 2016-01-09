@@ -1,2 +1,2 @@
-# Kitten
-A modular IRC bot for #meowcity at Rizon. Based off of the wonderful Sekshibot by ReAnna
+# Fayebot
+An IRC bot tenderly written in Ruby
