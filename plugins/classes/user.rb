@@ -2,8 +2,8 @@
 class User
   include CouchPotato::Persistence
 
-  poperty :name, :type => String
-  validates_presence_of :name
+  poperty :nick, :type => String
+  validates_presence_of :nick
   property :created, :type => Date, :default => Proc.new { Time.now.utc }
   property :lastSpoke, :type => Date, :default => Proc.new { Time.now.utc }
   property :randomPhrase, :type => String, :default => ''
