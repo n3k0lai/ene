@@ -1,7 +1,7 @@
 <p align="center">
   <img src="https://raw.githubusercontent.com/catlover91/fayebot/master/faye/static/images/faye-1.png" width="350"/>
 </p>
-<h1 align="center">💋 Fayebt</h1>
+<h1 align="center">💋 Fayebot</h1>
 <p align="center">A bot framework tenderly written in Moonscript</p>
 
 ### Summary
