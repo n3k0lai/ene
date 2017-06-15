@@ -1,4 +1,0 @@
-{
-  server: 'irc.example.com',
-  channels: ['#channel1', '#channel2']
-}
