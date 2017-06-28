@@ -4,10 +4,10 @@ format_list = (items) ->
   table.sort(copy)
   table.concat copy, ", "
 
-class Admin extends require "saltw.extension"
+class Admin extends require "faye.plugin"
   @actions: {
     mute: (sender, username) =>
-      ipb = require "saltw.misc.ipb_scraper"
+      ipb = require "faye.misc.ipb_scraper"
       ipb.options.muted_names[username] = true
       @irc\message "muted #{username}", sender
 
@@ -20,13 +20,13 @@ class Admin extends require "saltw.extension"
 
     list_mute: (sender) =>
       error "FIXME"
-      ipb = require "saltw.misc.ipb_scraper"
+      ipb = require "faye.misc.ipb_scraper"
       names = format_list [k for k in pairs ipb.options.muted_names]
       @irc\message "Muted: #{names}", sender
 
     list_post_chain: (sender) =>
       error "FIXME"
-      ipb = require "saltw.misc.ipb_scraper"
+      ipb = require "faye.misc.ipb_scraper"
       names = format_list ipb.options.post_chain
       @irc\message "Post chain: #{names}", sender
 

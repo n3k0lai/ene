@@ -1,7 +1,7 @@
 
-import decode_html_entities from require "saltw.util"
+import decode_html_entities from require "faye.util"
 
-class UrlTitles extends require "saltw.extension"
+class UrlTitles extends require "faye.plugin"
   new: (@irc) =>
     @irc\on "irc.message", @\message_handler
 

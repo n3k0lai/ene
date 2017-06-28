@@ -4,7 +4,7 @@ shell_escape = (str) ->
 random_item = (items) ->
   items[math.random 1, #items]
 
-class Speak extends require  "saltw.extension"
+class Speak extends require  "faye.plugin"
   new: (@irc) =>
     @irc\on "irc.message", @\message_handler
 

@@ -1,2 +1,2 @@
 
-class Extension
+class Plugin

@@ -31,7 +31,7 @@ get_flags_for_user = (user) ->
 
   user_cache[user]
 
-class Speak extends require  "saltw.extension"
+class Speak extends require  "faye.plugin"
   new: (@irc) =>
     @irc\on "irc.message", @\message_handler
 

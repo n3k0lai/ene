@@ -1,4 +1,3 @@
-config = require("lapis.config").get!
 
 DEFAULT_CONFIG = {
   name: 'temp_name'

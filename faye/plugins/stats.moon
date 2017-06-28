@@ -1,6 +1,6 @@
-import ChannelUsers from require "saltw.models"
+import ChannelUsers from require "faye.models"
 
-class Stats extends require  "saltw.extension"
+class Stats extends require  "faye.plugin"
   new: (@irc) =>
     @irc\on "irc.message", @\message_handler
 

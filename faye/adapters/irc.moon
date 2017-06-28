@@ -2,16 +2,16 @@
 socket = require "socket"
 {parse: parse_url} = require "socket.url"
 
-import decode_html_entities from require "saltw.util"
+import decode_html_entities from require "faye.util"
 import insert from table
 
-import Reader from require "saltw.socket"
-import Dispatch from require "saltw.dispatch"
+import Reader from require "faye.socket"
+import Dispatch from require "faye.dispatch"
 
 log = (...) -> print "+++", ...
 
-class Irc
-  extension_prefix: "saltw.extensions."
+class Irc extends require "faye.adapter"
+  extension_prefix: "faye.plugins."
 
   colors = {
     white: 0
