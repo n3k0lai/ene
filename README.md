@@ -13,4 +13,16 @@ Fayebot is divided into three parts:
 * `adapters`: an implementation of a listener
 * `plugins`: an implementation of an output
 
-
+### Goals
+* Add Games
+    * Riichi
+        * make rules and validators
+        * make simple input and output
+        * make simple gameloop
+        * add ai
+* Add adapters
+    * irc adapter
+    * twitch adapter
+    * ncurses adapter
+    * love2d adapter
+    * love3d adapter
