@@ -1,9 +1,6 @@
 .tup
 *.lua
 
-# Ignore bundler config
-/.bundle
-
 # Ignore config credentials
 config.json
 
