@@ -2,10 +2,12 @@
 *.lua
 
 # Ignore config credentials
-config.json
+config.moon
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
 
 .DS_Store
+*~
+*.swp
