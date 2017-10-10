@@ -1,0 +1,31 @@
+# Welcome to serverless. Read the docs
+# https://serverless.com/framework/docs/
+
+# Serverless.yml is the configuration the CLI
+# uses to deploy your code to your provider of choice
+
+# The `service` block is the name of the service
+service: serverless-hello-world
+
+# The `provider` block defines where your service will be deployed
+provider:
+  name: aws
+  runtime: nodejs6.10
+
+  environment:
+    TWIT_API_KEY: ${file(./env.json):TWIT_API_KEY}
+    TWIT_API_KEY_SECRET: ${file(./env.json):TWIT_API_KEY_SECRET}
+    TWIT_ACCESS_TOKEN: ${file(./env.json):TWIT_ACCESS_TOKEN}
+    TWIT_ACCESS_TOKEN_SECRET: ${file(./env.json):TWIT_ACCESS_TOKEN_SECRET}
+    TWIT_TIMEOUT_MS: ${file(./env.json):TWIT_TIMEOUT_MS}
+
+# The `functions` block defines what code to deploy
+functions:
+  helloWorld:
+    handler: handler.helloWorld
+    # The `events` block defines how to trigger the handler.helloWorld code
+    events:
+      - http:
+          path: hello-world
+          method: get
+          cors: true
