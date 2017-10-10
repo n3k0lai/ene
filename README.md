@@ -9,9 +9,9 @@ Koromo is a general bot framework originally forked from [leafo's bot](https://g
 
 ### Features
 Koromo is divided into three parts:
-* `core`: an event loop that listens and outputs
-* `adapters`: an implementation of a listener
-* `plugins`: an implementation of an output
+* `koromo`: The core game engine
+* `handlers`: Service Input and Output
+* `plugins`: System plugins
 
 ### Goals
 * Add Games
