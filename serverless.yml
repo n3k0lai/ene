@@ -12,12 +12,12 @@ provider:
   name: aws
   runtime: nodejs6.10
 
-  environment:
-    TWIT_API_KEY: ${file(./env.json):TWIT_API_KEY}
-    TWIT_API_KEY_SECRET: ${file(./env.json):TWIT_API_KEY_SECRET}
-    TWIT_ACCESS_TOKEN: ${file(./env.json):TWIT_ACCESS_TOKEN}
-    TWIT_ACCESS_TOKEN_SECRET: ${file(./env.json):TWIT_ACCESS_TOKEN_SECRET}
-    TWIT_TIMEOUT_MS: ${file(./env.json):TWIT_TIMEOUT_MS}
+  #  environment:
+  #TWIT_API_KEY: ${file(./env.json):TWIT_API_KEY}
+  #  TWIT_API_KEY_SECRET: ${file(./env.json):TWIT_API_KEY_SECRET}
+  #  TWIT_ACCESS_TOKEN: ${file(./env.json):TWIT_ACCESS_TOKEN}
+  #  TWIT_ACCESS_TOKEN_SECRET: ${file(./env.json):TWIT_ACCESS_TOKEN_SECRET}
+  #  TWIT_TIMEOUT_MS: ${file(./env.json):TWIT_TIMEOUT_MS}
 
 # The `functions` block defines what code to deploy
 functions:

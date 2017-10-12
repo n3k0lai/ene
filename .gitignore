@@ -1,8 +1,6 @@
-.tup
-*.lua
 
 # Ignore config credentials
-config.moon
+config.js
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
