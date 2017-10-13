@@ -2,6 +2,7 @@ var config = require('./config');
 var core = require('./core');
 var T = require('twit');
 var tweetQueue = [];
+var loggingEnabled = true;
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -32,6 +33,10 @@ function checkTweetQueue(){
     });
   }
 
+  setTimeout(function(){
+    checkTweetQueue();
+  }, 300);//getRandomInt(3000, 60000));
+}
 var twitter = new T(config.twitter);
 
 var stream = twitter.stream('statuses/filter', { track: '@' + config.username });
