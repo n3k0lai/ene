@@ -1,15 +1,15 @@
 <p align="center">
-  <img src="https://4kbu.files.wordpress.com/2015/08/10_amae_koromo_3840x2160_.png" width="350"/>
+  <img src="./static/images/ene.png" width="350"/>
 </p>
-<h1 align="center">Koromo</h1>
-<p align="center">A bot javascript bot framework for Riichi Mahjong</p>
+<h1 align="center">Ene</h1>
+<p align="center">A javascript bot framework</p>
 
 ### Summary
-Koromo is a general bot framework originally forked from [leafo's bot](https://github.com/leafo/saltw-bot) with architectural influence from [munar](https://github.com/welovekpop/munar). Koromo looks to provide a robust framework for plugins to interope connections with a variety of other chat services. The main intention for Koromo is a strong AI for Riichi Mahjong because I want another option from Tenhou.
+Ene is a general bot framework originally forked from [leafo's bot](https://github.com/leafo/saltw-bot) with architectural influence from [munar](https://github.com/welovekpop/munar). Ene looks to provide a robust framework for plugins to interope connections with a variety of other chat services. The main intention for Ene is a strong AI for Riichi Mahjong because I want another option from Tenhou.
 
 ### Features
-Koromo is divided into three parts:
-* `koromo`: The core game engine
+Ene is divided into three parts:
+* `Ene`: The core game engine
 * `handlers`: Service Input and Output
 * `plugins`: System plugins
 
