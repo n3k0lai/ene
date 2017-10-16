@@ -38,7 +38,7 @@ function checkTweetQueue(){
   }, 300);//getRandomInt(3000, 60000));
 }
 var twitter = new T(config.twitter);
-
+console.log('twatter', twitter);
 var stream = twitter.stream('statuses/filter', { track: '@' + config.username });
 
 stream.on('tweet', function (tweet) {
