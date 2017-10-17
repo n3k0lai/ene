@@ -2,16 +2,18 @@
   "name": "fayebot",
   "version": "0.0.1",
   "description": "a modular bot framework running on serverless",
-  "repository": "git+https://github.com/CatLover91/fayebot.git",
+  "repository": "git+https://github.com/CatLover91/ene.git",
   "author": "github.com/catlover91",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/CatLover91/fayebot/issues"
+    "url": "https://github.com/CatLover91/ene/issues"
   },
-  "homepage": "https://github.com/CatLover91/fayebot#readme",
-  "standard": "babel-eslint",
+  "homepage": "https://github.com/CatLover91/ene#readme",
+  "standard": {
+    "parser": "babel-eslint"
+  },
   "scripts": {
-    "lint": "standard ./src/*.js",
+    "lint": "standard gulpfile.js src/*.js",
     "watch": "gulp watch",
     "build": "gulp",
     "babel-start": "babel-node src/twitter.js",
@@ -35,6 +37,7 @@
     "gulp-plumber": "^1.1.0",
     "gulp-util": "^3.0.8",
     "gulp-watch": "^4.3.11",
+    "standard": "^10.0.3",
     "through2": "^2.0.3"
   }
 }
