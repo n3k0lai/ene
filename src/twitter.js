@@ -1,8 +1,8 @@
-var config = require('../config');
-var core = require('./core');
-var T = require('twit');
-var tweetQueue = [];
-var loggingEnabled = true;
+import config from '../config'
+import core from './core'
+import T from 'twit'
+let tweetQueue = []
+const loggingEnabled = true
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;

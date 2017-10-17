@@ -4,6 +4,9 @@ node_modules
 # Ignore config credentials
 config.js
 
+# compiled
+lib
+
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
