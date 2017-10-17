@@ -11,12 +11,15 @@
   "homepage": "https://github.com/CatLover91/fayebot#readme",
   "scripts": {
     "lint": "eslint . --ext .js",
+    "watch": "gulp watch",
+    "build": "gulp",
     "start": "node ./src/twitter.js"
   },
   "dependencies": {
     "twit": "^2.2.9"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.0.1",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
