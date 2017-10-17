@@ -10,50 +10,50 @@ function getRandomInt(min, max) {
 
 function checkTweetQueue(){
   if (tweetQueue.length > 0){
-    var newTweet = tweetQueue.shift();
+    var newTweet = tweetQueue.shift()
     if (loggingEnabled === true){
-      console.log('Posting new tweet:');
-      console.log(newTweet);    
+      console.log('Posting new tweet:')
+      console.log(newTweet)    
     }
 
-    twitter.post('statuses/update',
-    {
+    twitter.post('statuses/update', {
       status: newTweet.text,
       in_reply_to_status_id: newTweet.id
-    }, function(err, data, response) {
-      if (loggingEnabled === true){
-        if (err){
-          console.log('ERROR');
-          console.log(err);          
-        }
-        else{
-          console.log('NO ERROR');          
+    }, (err, data, response) => {
+      if (loggingEnabled === true) {
+        if (err) {
+          console.log('ERROR')
+          console.log(err)       
+        } else {
+          console.log('NO ERROR')
         }
       }
-    });
+    })
   }
 
-  setTimeout(function(){
-    checkTweetQueue();
-  }, 300);//getRandomInt(3000, 60000));
+  setTimeout(() => {
+    checkTweetQueue()
+  }, 300) //getRandomInt(3000, 60000));
 }
-var twitter = new T(config.twitter);
-console.log('twatter', twitter);
-var stream = twitter.stream('statuses/filter', { track: '@' + config.username });
+const twitter = new T(config.twitter)
+console.log('twatter', twitter)
+const stream = twitter.stream('statuses/filter', { 
+  track: '@' + config.username 
+})
 
-stream.on('tweet', function (tweet) {
-  var reply = core.reply("local-user", tweet.text);
-  if (loggingEnabled === true){
-    console.log('New Tweet!');
-    console.log(tweet.id + ': ' + tweet.text);
-    console.log('Adding response to queue:');
-    console.log('@' + tweet.user.screen_name + ' ' + reply);
+stream.on('tweet', (tweet) => {
+  const reply = core.reply("local-user", tweet.text)
+  if (loggingEnabled) {
+    console.log('New Tweet!')
+    console.log(tweet.id + ': ' + tweet.text)
+    console.log('Adding response to queue:')
+    console.log('@' + tweet.user.screen_name + ' ' + reply)
   }
 
   tweetQueue.push({
     id: tweet.id_str,
     text: '@' + tweet.user.screen_name + ' ' + reply
-  });
-});
+  })
+})
 
-checkTweetQueue();
+checkTweetQueue()
