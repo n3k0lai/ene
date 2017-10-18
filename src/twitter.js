@@ -42,7 +42,7 @@ const stream = twitter.stream('statuses/filter', {
 })
 
 stream.on('tweet', (tweet) => {
-  const reply = core.reply("local-user", tweet.text)
+  const reply = core.reply(tweet)
   if (loggingEnabled) {
     console.log('New Tweet!')
     console.log(tweet.id + ': ' + tweet.text)

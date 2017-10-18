@@ -5,7 +5,7 @@ node_modules
 config.js
 
 # compiled
-lib
+build
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
