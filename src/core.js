@@ -1,9 +1,28 @@
+import EventEmitter from 'events'
 import emoji from 'node-emoji'
+import mongoose from 'mongoose'
 
-import Love from './love'
-import Rice from './rice'
+import Love from './plugins/love'
+import Rice from './plugins/rice'
 
-module.exports = {
+export default class Core extends EventEmitter {
+  
+  static defaultOptions = {
+    mongo: 'mongodb://localhost:27017/ene'
+  }
+
+  constructor (options = {}) {
+    super();
+
+    this.options = {
+      ...this.constructor.defaultOptions,
+      ...options
+    }
+    this.db = mongoose.connect(this.options.mongo, {
+      useMongoClient: true
+    })
+  }
+
   reply(str) {
     let toReturn = 'this is a test'
 

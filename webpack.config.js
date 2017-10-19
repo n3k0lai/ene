@@ -5,7 +5,7 @@ module.exports = {
   target:'node',
   entry: [
     'babel-polyfill', 
-    './src/twitter.js'
+    './src/app.js'
   ],
   output: {
     path: path.resolve(__dirname, 'build'),
