@@ -9,7 +9,7 @@ Ene is a general bot framework with heavy architectural influence from [munar](h
 
 ### Features
 Ene is divided into three parts:
-* `/src/core`: The core bot engine
+* `/src/core/`: The core bot engine
 * `/src/adapters/`: Service Input and Output
 * `/src/plugins/`: dynamic logic for handling input
 

@@ -1,4 +1,4 @@
-import Core from './core'
+import Core from '.core/core'
 import config from '../config'
 import TwitterAdapter from './adapters/twitter'
 

@@ -2,8 +2,8 @@ import EventEmitter from 'events'
 import emoji from 'node-emoji'
 import mongoose from 'mongoose'
 
-import Love from './plugins/love'
-import Rice from './plugins/rice'
+import Love from '../plugins/love'
+import Rice from '../plugins/rice'
 
 export default class Core extends EventEmitter {
   
