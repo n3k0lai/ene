@@ -1,4 +1,4 @@
-import ircs from 'ircs'
+import irc from 'irc'
 
 export default class Irc {
   
