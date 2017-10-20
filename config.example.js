@@ -1,9 +1,14 @@
 module.exports = {
-  username: 'example_username',
-  twitter: {     
-    consumer_key: '',    
-    consumer_secret: '',     
-    access_token:'',     
-    access_token_secret:''
+  twitter: { 
+    username: 'example_username',
+    creds: {     
+      consumer_key: '',    
+      consumer_secret: '',     
+      access_token:'',     
+      access_token_secret:''
+    }
+  },
+  irc: {
+
   }
 } 

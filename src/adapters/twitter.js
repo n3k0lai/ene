@@ -16,7 +16,7 @@ export default class Twitter {
   
   async connect () {
     return new Promise((resolve, reject) => {
-      this.client = new T(this.options.twitter)
+      this.client = new T(this.options.creds)
       console.log('twatter', this.client)
       
       this.stream = this.client.stream('statuses/filter', { 
