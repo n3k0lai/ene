@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "eris": "^0.8.0",
     "irc": "^0.5.2",
     "mongoose": "^4.12.3",
     "node-emoji": "^1.8.1",

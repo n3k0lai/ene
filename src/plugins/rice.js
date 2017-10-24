@@ -1,5 +1,6 @@
+import Plugin from '../core/plugin.js'
 
-export default class Rice {
+export default class Rice extends Plugin {
   constructor() {
 
   }

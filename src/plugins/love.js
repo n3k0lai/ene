@@ -1,3 +1,4 @@
+import Plugin from '../core/plugin.js'
 
 export default class Love {
   constructor() {
