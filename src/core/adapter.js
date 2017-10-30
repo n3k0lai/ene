@@ -22,7 +22,7 @@ export default class Adapter extends EventEmitter {
   /**
    * Disconnect from the adapter source.
    */
-  async disconnect() {
+  async disconnect () {
     unimplemented(this, 'disconnect')
   }
 
@@ -44,7 +44,7 @@ export default class Adapter extends EventEmitter {
     unimplemented(this, 'getChannels')
   }
 
-  getUser(id) {
+  getUser (id) {
     const users = this.getUsers()
     return users.find((user) => user.id === id)
   }

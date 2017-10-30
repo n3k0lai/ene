@@ -4,20 +4,20 @@ import Adapter from '../core/adapter'
 
 export default class Twitter extends Adapter {
   static adapterName = 'twitter'
-  
+
   constructor (bot, options) {
     super(bot)
     this.tweetQueue = []
     this.options = options
   }
-  
+
   async connect () {
     return new Promise((resolve, reject) => {
       this.client = new T(this.options.creds)
       console.log('twatter', this.client)
-      
-      this.stream = this.client.stream('statuses/filter', { 
-        track: '@' + this.options.username 
+
+      this.stream = this.client.stream('statuses/filter', {
+        track: '@' + this.options.username
       })
 
       this.stream.on('tweet', (tweet) => {
@@ -32,11 +32,11 @@ export default class Twitter extends Adapter {
           id: tweet.id_str,
           text: '@' + tweet.user.screen_name + ' ' + reply
         })
-      }) 
+      })
       this.checkTweetQueue()
     })
   }
-  
+
   disconnect () {
     this.stream.stop()
     this.stream = null
@@ -48,12 +48,12 @@ export default class Twitter extends Adapter {
     return this.self
   }
 
-  checkTweetQueue(){
-    if (this.tweetQueue.length > 0){
+  checkTweetQueue () {
+    if (this.tweetQueue.length > 0) {
       let newTweet = this.tweetQueue.shift()
 
       console.log('Posting new tweet:')
-      console.log(newTweet)    
+      console.log(newTweet)
 
       this.client.post('statuses/update', {
         status: newTweet.text,
@@ -61,7 +61,7 @@ export default class Twitter extends Adapter {
       }, (err, data, response) => {
         if (err) {
           console.log('ERROR')
-          console.log(err)       
+          console.log(err)
         } else {
           console.log('NO ERROR')
         }

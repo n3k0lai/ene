@@ -1,10 +1,9 @@
-var path = require('path');
-var webpack = require('webpack');
+var path = require('path')
 
 module.exports = {
-  target:'node',
+  target: 'node',
   entry: [
-    'babel-polyfill', 
+    'babel-polyfill',
     './src/app.js'
   ],
   output: {
@@ -16,7 +15,7 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        include: path.join(__dirname, "src"),
+        include: path.join(__dirname, 'src'),
         loader: 'babel-loader',
         query: {
           presets: ['es2015-node4']
@@ -27,4 +26,4 @@ module.exports = {
   stats: {
     colors: true
   }
-};
+}

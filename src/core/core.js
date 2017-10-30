@@ -6,13 +6,12 @@ import Love from '../plugins/love'
 import Rice from '../plugins/rice'
 
 export default class Core extends EventEmitter {
-  
   static defaultOptions = {
     mongo: 'mongodb://localhost:27017/ene'
   }
 
   constructor (options = {}) {
-    super();
+    super()
 
     this.options = {
       ...this.constructor.defaultOptions,
@@ -26,9 +25,9 @@ export default class Core extends EventEmitter {
   receive (adapter, event, args) {
     let toReturn = 'this is a test'
 
-    if(Love.test(event.text)) toReturn = Love.respond(str.text)
+    if (Love.test(event.text)) toReturn = Love.respond(event.text)
 
-    if(Rice.test(event.text)) toReturn = Rice.respond(str.text)
+    if (Rice.test(event.text)) toReturn = Rice.respond(event.text)
 
     return emoji.emojify(toReturn)
   }

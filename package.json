@@ -10,7 +10,11 @@
   },
   "homepage": "https://github.com/CatLover91/ene#readme",
   "standard": {
-    "parser": "babel-eslint"
+    "parser": "babel-eslint",
+    "ignore": [
+      "src/plugins-dev",
+      "archive"
+    ]
   },
   "scripts": {
     "lint": "standard src/*.js",
