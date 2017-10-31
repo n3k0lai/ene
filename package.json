@@ -17,7 +17,7 @@
     ]
   },
   "scripts": {
-    "lint": "standard src/*.js",
+    "lint": "standard --verbose src/*.js | snazzy",
     "watch": "webpack-dev-server",
     "build": "webpack",
     "start": "node ./build/main.bundle.js"
@@ -42,6 +42,7 @@
     "babel-preset-es2016": "^6.24.1",
     "babel-preset-es2017": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
+    "snazzy": "^7.0.0",
     "standard": "^10.0.3",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.2"
