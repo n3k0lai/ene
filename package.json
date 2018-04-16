@@ -26,6 +26,7 @@
     "babel-polyfill": "^6.26.0",
     "mongoose": "^4.12.3",
     "node-emoji": "^1.8.1",
+    "tracery-grammar": "^2.7.3",
     "twit": "^2.2.9"
   },
   "devDependencies": {

@@ -22,12 +22,14 @@ export default class Core extends EventEmitter {
     })
   }
 
-  receive (adapter, event, args) {
+  receive (tweet) {
+    console.log('Receiving')
+    console.log(tweet)
     let toReturn = 'this is a test'
 
-    if (Love.test(event.text)) toReturn = Love.respond(event.text)
+    if (Love.test(tweet.text)) toReturn = Love.respond(tweet.text)
 
-    if (Rice.test(event.text)) toReturn = Rice.respond(event.text)
+    if (Rice.test(tweet.text)) toReturn = Rice.respond(tweet.text)
 
     return emoji.emojify(toReturn)
   }

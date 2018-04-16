@@ -1,8 +1,8 @@
 import T from 'twit'
 
-import Adapter from './core/adapter'
+import Core from './core/core'
 
-export default class Twitter extends Adapter {
+export default class Twitter extends Core {
   static adapterName = 'twitter'
 
   constructor (bot, options) {
@@ -14,7 +14,7 @@ export default class Twitter extends Adapter {
   async connect () {
     return new Promise((resolve, reject) => {
       this.client = new T(this.options.creds)
-      console.log('twatter', this.client)
+      console.log('twatter connected')
 
       this.stream = this.client.stream('statuses/filter', {
         track: '@' + this.options.username
