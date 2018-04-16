@@ -1,6 +1,6 @@
 import T from 'twit'
 
-import Adapter from '../core/adapter'
+import Adapter from './core/adapter'
 
 export default class Twitter extends Adapter {
   static adapterName = 'twitter'
