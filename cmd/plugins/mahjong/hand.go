@@ -1,4 +1,4 @@
-
+package Mahjong
 
 class Hand {
   constructor(tiles) {
