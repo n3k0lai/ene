@@ -43,6 +43,7 @@ func (q *Question) Ask() {
 	q.Timer = time.NewTimer(time.Second * time.Duration(q.SecondsLimit))
 	go func() {
 		<-q.Timer.C
+		// hint
 		if q.Solved {
 			return
 		}

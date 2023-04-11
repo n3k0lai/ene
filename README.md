@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./static/images/ene.png" width="350"/>
+  <img src="./static/ene/ene.png" width="350"/>
 </p>
 <h1 align="center">Ene</h1>
 <p align="center">A go bot framework</p>
