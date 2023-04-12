@@ -1,16 +1,12 @@
-# js
-node_modules
-# Ignore config credentials
-config.js
+# do not upload your config files!
+waifu.toml
+himbo.toml
 
-# compiled
-build
 
 # Ignore all logfiles and tempfiles.
 /*.log
 /log/*.log
 /tmp
-
 .DS_Store
 *~
 *.swp

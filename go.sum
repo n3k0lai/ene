@@ -1,2 +1,2 @@
-github.com/nicklaw5/helix/v2 v2.21.0 h1:POfr5uynT/kmt6BWnmg9HOiF4GDeebuyTgSqjjXIB5M=
-github.com/nicklaw5/helix/v2 v2.21.0/go.mod h1:zZcKsyyBWDli34x3QleYsVMiiNGMXPAEU5NjsiZDtvY=
+github.com/sashabaranov/go-openai v1.7.0 h1:D1dBXoZhtf/aKNu6WFf0c7Ah2NM30PZ/3Mqly6cZ7fk=
+github.com/sashabaranov/go-openai v1.7.0/go.mod h1:lj5b/K+zjTSFxVLijLSTDZuP7adOgerWeFyZLUhAKRg=

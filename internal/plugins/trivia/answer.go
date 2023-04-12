@@ -2,18 +2,18 @@ package Trivia
 
 type Answer struct {
 	RealAnswer string
-	Query string
+	Query      string
 	Percentage float64
-	Winner bool
+	Winner     bool
 }
 
 func NewAnswer(query string, realAnswer string) *Answer {
 	if query == realAnswer {
-		return &Answer {
+		return &Answer{
 			RealAnswer: realAnswer,
-			Query: query,
+			Query:      query,
 			Percentage: 0.0,
-			Winner: false,
+			Winner:     false,
 		}
 	}
 
@@ -30,10 +30,10 @@ func NewAnswer(query string, realAnswer string) *Answer {
 		}
 	}
 
-	return &Answer {
+	return &Answer{
 		RealAnswer: realAnswer,
-		Query: query,
+		Query:      query,
 		Percentage: float64(differences) / float64(length),
-		Winner: false,
+		Winner:     false,
 	}
 }

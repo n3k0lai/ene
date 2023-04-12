@@ -5,28 +5,28 @@ import (
 )
 
 type Question struct {
-	Text string
-	Answer string
-	Timer *time.Timer
-	Queries []Answer
-	Solved bool
-	Limit float64
+	Text         string
+	Answer       string
+	Timer        *time.Timer
+	Queries      []Answer
+	Solved       bool
+	Limit        float64
 	SecondsLimit int
-	Expired bool
-	LastAsked *time.Time
+	Expired      bool
+	LastAsked    *time.Time
 }
 
 func NewQuestion(text string, answer string, secondsLimit int, percentageLimit float64) *Question {
 	return &Question{
-		Text: text,
-		Answer: answer,
-		Timer: nil,
-		Queries: []Answer{},
-		Solved: false,
-		Expired: false,
-		Limit: percentageLimit,
+		Text:         text,
+		Answer:       answer,
+		Timer:        nil,
+		Queries:      []Answer{},
+		Solved:       false,
+		Expired:      false,
+		Limit:        percentageLimit,
 		SecondsLimit: secondsLimit,
-		LastAsked: nil,
+		LastAsked:    nil,
 	}
 }
 
@@ -53,7 +53,7 @@ func (q *Question) Ask() {
 	// say question
 }
 func (q *Question) AddQuery(query string) {
-	if q.Solved || q.Expired{
+	if q.Solved || q.Expired {
 		return
 	}
 	answer := *NewAnswer(query, q.Answer)

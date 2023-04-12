@@ -1,12 +1,17 @@
 package Trivia
 
-import "math/rand"
+import (
+	"math/rand"
+	"time"
+
+	Lib "github.com/n3k0lai/ene/internal/lib"
+)
 
 type Trivia struct {
 	Questions []Question
 }
 
-func NewTrivia(dict Dictionary) *Trivia {
+func NewTrivia(dict Lib.Dictionary) *Trivia {
 	rand.Seed(time.Now().UnixNano())
 	return &Trivia{
 		Questions: []Question{},

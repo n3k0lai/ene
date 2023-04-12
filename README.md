@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./static/ene/ene.png" width="350"/>
+  <img src="./web/ene/ene.png" width="350"/>
 </p>
 <h1 align="center">Ene</h1>
 <p align="center">A go bot framework</p>
@@ -19,9 +19,12 @@ Ene is divided into three parts:
   - [ ] twitch
   - [ ] discord
   - [ ] opera.gx
+  - [ ] twitter
+  - [ ] tts
 * plugins
   - [ ] trivia
   - [ ] chatgpt
+  - [ ] quotes
   - [ ] tarot
   - [ ] mahjong
   - [ ] chinese dictionary

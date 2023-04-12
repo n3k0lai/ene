@@ -29,5 +29,6 @@ func (c *Conversation) StopAnswer() {
 
 func (c *Conversation) Respond() {
 	c.Typing = true
-	c.Adapter.Respond(c)
+	var res Message
+	c.Adapter.Respond(res, *c)
 }
