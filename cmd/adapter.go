@@ -1,9 +1,5 @@
 package core
 
-import (
-	"time"
-)
-
 type IAdapter interface {
 	// Opens a connection to the Twitch.tv IRC chat server.
 	Connect()
@@ -43,6 +39,6 @@ const (
 )
 
 type Adapter struct {
-	Typing      bool
-	Type        AdapterType
+	Typing bool
+	Type   AdapterType
 }
