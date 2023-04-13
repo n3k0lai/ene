@@ -9,9 +9,9 @@ Ene is a twitch bot that functions as plugin framework for making fun chatbot pl
 
 ### Features
 Ene is divided into three parts:
-* `/cmd/core/`: The core bot engine
-* `/cmd/adapters/`: Service Input and Output
-* `/cmd/plugins/`: dynamic logic for handling input
+* `/cmd/`: The core bot engine
+* `/internal/adapters/`: Service Input and Output
+* `/internal/plugins/`: dynamic logic for handling input
 
 ### Goals
 * adapter
