@@ -17,12 +17,18 @@ Ene is divided into three parts:
 * adapter
   - [ ] cli
   - [ ] twitch
+  - [ ] openai
   - [ ] discord
   - [ ] opera.gx
   - [ ] twitter
   - [ ] tts
 * plugins
   - [ ] trivia
+  - [ ] emotes
+    - [ ] ffz
+    - [ ] bttv
+    - [ ] 7tv
+  - [ ] spam
   - [ ] chatgpt
   - [ ] quotes
   - [ ] tarot
