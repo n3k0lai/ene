@@ -1,15 +1,16 @@
-package Convo
+package Conversation
 
-//import (
+import (
 	//Adapters "github.com/n3k0lai/ene/internal/adapters"
 	//Plugins "github.com/n3k0lai/ene/internal/plugins"
-//)
+)
 
 type Conversation struct {
 	Messages []Message
 	Typing   bool
-	Plugin   Plugins.IPlugin
-	Adapter  Adapters.IAdapter
+	
+	//Plugin   Plugins.IPlugin
+	//Adapter  Adapters.IAdapter
 }
 
 func NewConversation(m Message) *Conversation {
@@ -34,6 +35,6 @@ func (c *Conversation) StopAnswer() {
 
 func (c *Conversation) Respond() {
 	c.Typing = true
-	var res Message
-	c.Adapter.Respond(res, *c)
+	//var res Message
+	//c.Adapter.Respond(res, *c)
 }

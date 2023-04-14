@@ -1,9 +1,9 @@
 package Bot
 
 import (
-	Adapters "github.com/n3k0lai/ene/internal/adapters"
-	Convo "github.com/n3k0lai/ene/internal/convo"
-	Plugins "github.com/n3k0lai/ene/internal/plugins"
+	Adapter "github.com/n3k0lai/ene/internal/adapters/adapter"
+	Conversation "github.com/n3k0lai/ene/internal/conversation"
+	Plugin "github.com/n3k0lai/ene/internal/plugins/plugin"
 	Users "github.com/n3k0lai/ene/internal/users"
 )
 
@@ -14,8 +14,8 @@ type IBot interface {
 }
 
 type Bot struct {
-	ActiveAdapters []Adapters.IAdapter
-	ActivePlugins  []Plugins.IPlugin
+	ActiveAdapters []Adapter.IAdapter
+	ActivePlugins  []Plugin.IPlugin
 	BotUser        Users.User
 }
 
@@ -32,34 +32,41 @@ func NewBot(config BotConfig) *Bot {
 }
 
 func (b *Bot) Start() error {
-	b.ActiveAdapters.Start()
+	// start adapters
+	for _, val := range b.ActiveAdapters {
+		val.Start()
+	}
+	return nil
 }
 
-func (b *Bot) GetConnectMessage() Convo.Message {
-	return Convo.Message{
+func (b *Bot) GetConnectMessage() Conversation.Message {
+	return Conversation.Message{
 		User: b.BotUser,
 		Text: "Hello, I'm a bot!",
 	}
 
 }
 
-func (b *Bot) HandleMessage(m Convo.Message) Convo.Conversation {
-	c := Convo.Conversation{
-		Adapter:  m.Adapter,
-		Messages: m,
+func (b *Bot) HandleMessage(m Conversation.Message) Conversation.Conversation {
+	c := Conversation.Conversation{
+		//Adapter:  m.Adapter,
+		Messages: []Conversation.Message{m},
 	}
 	b.Converse(c)
 	return c
 }
 
-func (b *Bot) Converse(c Convo.Conversation) Convo.Conversation {
+func (b *Bot) Converse(c Conversation.Conversation) Conversation.Conversation {
 
 	// get latest message
+	latestMessage := c.Messages[len(c.Messages)-1]
 	// test all plugins
-	for i, val := range b.ActivePlugins {
-		if val.Test(c) {
-			c.Plugin = val
+
+	for _, plugin := range b.ActivePlugins {
+		if plugin.Test(latestMessage.Text) {
+			//c.Plugin = plugin
 			break
 		}
 	}
+	return c
 }

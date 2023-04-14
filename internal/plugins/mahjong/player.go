@@ -1,9 +1,9 @@
 package Mahjong
 
-import core "github.com/n3k0lai/ene/cmd"
+import User "github.com/n3k0lai/ene/internal/users"
 
 type Player struct {
-	User             core.User
+	User             User.User
 	GameHistory      []Game
 	CurrentlyPlaying []Game
 }

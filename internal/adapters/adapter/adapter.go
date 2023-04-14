@@ -1,9 +1,9 @@
 package Adapters
 
 import (
+	Conversation "github.com/n3k0lai/ene/internal/conversation"
 	//Bot "github.com/n3k0lai/ene/cmd"
 	//CliAdapter "github.com/n3k0lai/ene/internal/adapters/cli"
-	Convo "github.com/n3k0lai/ene/internal/convo"
 )
 
 type IAdapter interface {
@@ -13,9 +13,9 @@ type IAdapter interface {
 	// Closes a connection to the Twitch.tv IRC chat server.
 	//Disconnect()
 
-	Send(m Convo.Message) Convo.Conversation
+	Send(m Conversation.Message) Conversation.Conversation
 	//Respond(m core.Message, c core.Conversation)
-	OnMessage(m Convo.Message)
+	OnMessage(m Conversation.Message)
 
 	// Listens to chat messages and PING request from the IRC server.
 	//HandleChat() error

@@ -4,11 +4,11 @@ import (
 	"math/rand"
 	"time"
 
-	Plugins "github.com/n3k0lai/ene/internal/plugins"
+	Plugin "github.com/n3k0lai/ene/internal/plugins/plugin"
 )
 
 type Trivia struct {
-	*Plugins.Plugin
+	*Plugin.Plugin
 	Questions      []Question
 	ActiveQuestion Question
 }
@@ -31,7 +31,7 @@ func (t *Trivia) Test(query string) bool {
 func NewTrivia() *Trivia {
 	rand.Seed(time.Now().UnixNano())
 	return &Trivia{
-		Plugin:    &Plugins.Plugin{},
+		Plugin:    &Plugin.Plugin{},
 		Questions: []Question{},
 	}
 }

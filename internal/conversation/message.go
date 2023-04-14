@@ -1,4 +1,4 @@
-package Convo
+package Conversation
 
 import (
 	//Adapters "github.com/n3k0lai/ene/internal/adapters"
@@ -8,13 +8,13 @@ import (
 type Message struct {
 	Text string
 	User Users.User
-	Type Adapters.AdapterType
+	//Type Adapters.AdapterType
 }
 
-func NewMessage(text string, user Users.User, adapterType Adapters.AdapterType) *Message {
+func NewMessage(text string, user Users.User) *Message {
 	return &Message{
 		Text: text,
 		User: user,
-		Type: adapterType,
+		//Type: adapterType,
 	}
 }

@@ -1,18 +1,19 @@
 package Bot
 
 import (
-	Adapters "ene/internal/adapters"
+	Adapter "ene/internal/adapters/adapter"
+	CliAdapter "ene/internal/adapters/cli"
 )
 
 func GetAvailableAdapters() []string {
 	return []string{"cli", "twitch", "discord", "chatgpt", "extension", "twitter"}
 }
-func GetAdapters(adapterList []string) []Adapters.IAdapter {
-	var adapters []Adapters.IAdapter
+func GetAdapters(adapterList []string) []Adapter.IAdapter {
+	var adapters []Adapter.IAdapter
 	for _, val := range adapterList {
 		switch val {
 		case "cli":
-			adapters = append(adapters, CliAdapter.NewCliAdapter(AdminUser, b))
+			adapters = append(adapters, CliAdapter.NewCliAdapter(Adapter))
 			//case "twitch":
 			//	adapters = append(adapters, NewAdapter(TwitchAdapterType, val, b))
 			//case "discord":
