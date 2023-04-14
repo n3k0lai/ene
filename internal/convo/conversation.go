@@ -1,10 +1,15 @@
-package core
+package Convo
+
+//import (
+	//Adapters "github.com/n3k0lai/ene/internal/adapters"
+	//Plugins "github.com/n3k0lai/ene/internal/plugins"
+//)
 
 type Conversation struct {
 	Messages []Message
 	Typing   bool
-	Plugin   IPlugin
-	Adapter  IAdapter
+	Plugin   Plugins.IPlugin
+	Adapter  Adapters.IAdapter
 }
 
 func NewConversation(m Message) *Conversation {
@@ -24,7 +29,7 @@ func (c *Conversation) OnMessage(m Message) {
 
 func (c *Conversation) StopAnswer() {
 	c.Typing = false
-
+	// TODO: send kill signal to adapter
 }
 
 func (c *Conversation) Respond() {

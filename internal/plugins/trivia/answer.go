@@ -1,5 +1,7 @@
 package Trivia
 
+import Lib "github.com/n3k0lai/ene/internal/lib"
+
 type Answer struct {
 	RealAnswer string
 	Query      string
@@ -17,23 +19,10 @@ func NewAnswer(query string, realAnswer string) *Answer {
 		}
 	}
 
-	length := len(query)
-
-	if len(realAnswer) < length {
-		length = len(realAnswer)
-	}
-
-	differences := 0
-	for i := 0; i < length; i++ {
-		if query[i] != realAnswer[i] {
-			differences++
-		}
-	}
-
 	return &Answer{
 		RealAnswer: realAnswer,
 		Query:      query,
-		Percentage: float64(differences) / float64(length),
+		Percentage: Lib.GetSimilarity(query, realAnswer),
 		Winner:     false,
 	}
 }

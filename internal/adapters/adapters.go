@@ -1,24 +1,30 @@
-package core
+package Adapters
+
+import (
+	//Bot "github.com/n3k0lai/ene/cmd"
+	//CliAdapter "github.com/n3k0lai/ene/internal/adapters/cli"
+	Convo "github.com/n3k0lai/ene/internal/convo"
+)
 
 type IAdapter interface {
 	// Opens a connection to the Twitch.tv IRC chat server.
-	Connect()
+	//Connect()
 
 	// Closes a connection to the Twitch.tv IRC chat server.
-	Disconnect()
+	//Disconnect()
 
-	Send(m Message) Conversation
-	Respond(m Message, c Conversation)
-	OnMessage(m Message)
+	Send(m Convo.Message) Convo.Conversation
+	//Respond(m core.Message, c core.Conversation)
+	OnMessage(m Convo.Message)
 
 	// Listens to chat messages and PING request from the IRC server.
 	//HandleChat() error
 
 	// Joins a specific chat channel.
-	JoinChannel()
+	//JoinChannel()
 
 	// Parses credentials needed for authentication.
-	ReadCredentials() error
+	//ReadCredentials() error
 
 	// Sends a message to the connected channel.
 	//Say(msg string) error
@@ -41,4 +47,12 @@ const (
 type Adapter struct {
 	Typing bool
 	Type   AdapterType
+	Name   string
+}
+
+func NewAdapter(t AdapterType, n string) *Adapter {
+	return &Adapter{
+		Type: t,
+		Name: n,
+	}
 }

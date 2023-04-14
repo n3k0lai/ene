@@ -52,9 +52,10 @@ func (q *Question) Ask() {
 
 	// say question
 }
-func (q *Question) AddQuery(query string) {
+
+func (q *Question) AddQuery(query string) bool {
 	if q.Solved || q.Expired {
-		return
+		return false
 	}
 	answer := *NewAnswer(query, q.Answer)
 	if answer.Percentage < q.Limit {
@@ -64,6 +65,10 @@ func (q *Question) AddQuery(query string) {
 		// notify of win
 
 		q.Reset()
+
+		return true
 	}
 	q.Queries = append(q.Queries, answer)
+
+	return false
 }

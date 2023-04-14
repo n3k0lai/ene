@@ -1,9 +1,9 @@
 package Tarot
 
-type Arcana {
-	"major" | "minor"
-	
-}
+//type Arcana {
+//	"major" | "minor"
+//}
+
 type TarotCard struct {
 	Name string
 }
@@ -15,5 +15,5 @@ func NewTarotCard(name string) *TarotCard {
 }
 
 func (c *TarotCard) Render(adapterType string) {
-	
+
 }
