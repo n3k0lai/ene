@@ -1,4 +1,4 @@
-package CliAdapter
+package Cli
 
 import (
 	"fmt"

@@ -1,6 +1,9 @@
 package Bot
 
 import (
+	CliAdapter "ene/internal/adapters/cli"
+	Trivia "ene/internal/plugins/trivia"
+
 	Adapter "github.com/n3k0lai/ene/internal/adapters/adapter"
 	Conversation "github.com/n3k0lai/ene/internal/conversation"
 	Plugin "github.com/n3k0lai/ene/internal/plugins/plugin"
@@ -24,9 +27,51 @@ type BotConfig struct {
 	Plugins  []string
 }
 
+func GetAvailableAdapters() []string {
+	return []string{"cli", "twitch", "discord", "chatgpt", "extension", "twitter"}
+}
+func GetAdapters(adapterList []string, botUser Users.User) []Adapter.IAdapter {
+	var adapters []Adapter.IAdapter
+	for _, val := range adapterList {
+		switch val {
+		case "cli":
+			adapters = append(adapters, CliAdapter.NewCliAdapter(botUser))
+			//case "twitch":
+			//	adapters = append(adapters, NewAdapter(TwitchAdapterType, val, b))
+			//case "discord":
+			//	adapters = append(adapters, NewAdapter(DiscordAdapterType, val, b))
+			//case "chatgpt":
+			//	adapters = append(adapters, NewAdapter(ChatGptAdapterType, val, b))
+			//case "extension":
+			//	adapters = append(adapters, NewAdapter(ExtensionAdapterType, val, b))
+			//case "twitter":
+			//	adapters = append(adapters, NewAdapter(TwitterAdapterType, val, b))
+		}
+	}
+	return adapters
+}
+
+func GetAvailablePlugins() []string {
+	return []string{"trivia", "tarot"}
+}
+
+func GetPlugins(pluginList []string) []Plugin.IPlugin {
+	var plugins []Plugin.IPlugin
+	for _, val := range pluginList {
+		switch val {
+		case "trivia":
+			plugins = append(plugins, Trivia.NewTrivia())
+			//case "tarot":
+			//	plugins = append(plugins, NewTarot())
+		}
+	}
+	return plugins
+}
 func NewBot(config BotConfig) *Bot {
+	botUser := Users.NewUser();
+
 	return &Bot{
-		ActiveAdapters: GetAdapters(config.Adapters),
+		ActiveAdapters: GetAdapters(config.Adapters, *botUser),
 		ActivePlugins:  GetPlugins(config.Plugins),
 	}
 }
