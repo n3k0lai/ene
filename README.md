@@ -14,6 +14,7 @@ Ene is divided into three parts:
 * `/internal/plugins/`: dynamic logic for handling input
 
 ### Goals
+
 * adapters
   - [ ] cli
   - [ ] twitch
