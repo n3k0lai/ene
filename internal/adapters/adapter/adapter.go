@@ -13,7 +13,7 @@ type IAdapter interface {
 	// Closes a connection to the Twitch.tv IRC chat server.
 	//Disconnect()
 
-	Send(m Conversation.Message) Conversation.Conversation
+	Send(m Conversation.Message)
 	//Respond(m core.Message, c core.Conversation)
 	OnMessage(m Conversation.Message)
 
