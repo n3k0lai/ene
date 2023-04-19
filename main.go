@@ -5,8 +5,10 @@ import (
 )
 
 func main() {
-	Bot.NewBot(Bot.BotConfig{
+	ene := Bot.NewBot(Bot.BotConfig{
 		Adapters: []string{"cli"},
 		Plugins:  []string{"trivia"},
 	})
+
+	ene.Start()
 }

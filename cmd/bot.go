@@ -1,6 +1,8 @@
 package Bot
 
 import (
+	"fmt"
+
 	Adapters "github.com/n3k0lai/ene/internal/adapters"
 	Adapter "github.com/n3k0lai/ene/internal/adapters/adapter"
 	Conversation "github.com/n3k0lai/ene/internal/conversation"
@@ -36,6 +38,7 @@ func NewBot(config BotConfig) *Bot {
 }
 
 func (b *Bot) Start() error {
+	fmt.Println("Starting bot...")
 	// start adapters
 	for _, val := range b.ActiveAdapters {
 		val.Start()
@@ -46,7 +49,7 @@ func (b *Bot) Start() error {
 func (b *Bot) GetConnectMessage() Conversation.Message {
 	return Conversation.Message{
 		User: b.BotUser,
-		Text: "Hello, I'm a bot!",
+		Text: "Hello, new adapter!",
 	}
 
 }
