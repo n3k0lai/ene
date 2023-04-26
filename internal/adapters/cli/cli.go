@@ -1,11 +1,11 @@
 package Cli
 
 import (
-	"fmt"
-
 	Adapter "github.com/n3k0lai/ene/internal/adapters/adapter"
 	Conversation "github.com/n3k0lai/ene/internal/conversation"
+	Lib "github.com/n3k0lai/ene/internal/lib"
 	Users "github.com/n3k0lai/ene/internal/users"
+	"github.com/pterm/pterm"
 )
 
 type CliAdapter struct {
@@ -26,34 +26,42 @@ func NewCliAdapter(user Users.User) *CliAdapter {
 }
 
 func (cli *CliAdapter) Send(m Conversation.Message) {
-	fmt.Println(m.Text)
+	pterm.Info.WithPrefix(pterm.Prefix{
+		Text:  "ene",
+		Style: pterm.NewStyle(pterm.FgLightCyan, pterm.BgBlack, pterm.Bold),
+	}).Printfln("You sent: %s", m.Text)
 }
 
 func (cli *CliAdapter) OnMessage(m Conversation.Message) {
 
 	// send the message to the bot
-	//cli.OnMessage(*m)
 
 	// make a new conversation
 	//cli.Adapter.Bot.HandleMessage(m)
+	cli.Send(m)
 
 }
 
 // Attempts to keep the bot connected and handling chat.
 func (cli *CliAdapter) Start() {
-	//cli.Send(cli.Adapter.Bot.GetConnectMessage())
-	//panel1 := pterm.DefaultBox.Sprint("Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit,\nsed do eiusmod tempor incididunt\nut labore et dolore\nmagna aliqua.")
-	//panel2 := pterm.DefaultBox.WithTitle("title").Sprint("Ut enim ad minim veniam,\nquis nostrud exercitation\nullamco laboris\nnisi ut aliquip\nex ea commodo\nconsequat.")
+	pterm.Info.Printfln("cli adapter started")
+	//logPanel := pterm.DefaultBox.WithTitle("logs").Sprint()
+	//for i := 0; i < 100; i++ {
+	//	logPanel.Write(fmt.Sprintf("Log message %d\n", i))
+	//	time.Sleep(time.Millisecond * 100)
+	//}
+	//chatPanel := pterm.DefaultBox.WithTitle("chat").WithTitleBottomRight().WithRightPadding(0).WithBottomPadding(0).Sprint()
 	//panels, _ := pterm.DefaultPanel.WithPanels(pterm.Panels{
-	//	{{Data: panel1}, {Data: panel2}},
+	//	{{Data: logPanel}, {Data: chatPanel}},
 	//	//{{Data: panel3}},
 	//}).Srender()
-	//pterm.DefaultBox.WithTitle("Lorem Ipsum").WithTitleBottomRight().WithRightPadding(0).WithBottomPadding(0).Println(panels)
+	//pterm.DefaultBox.WithTitle("ene").Println(panels)
+	//reader := bufio.NewReader(os.Stdin)
 	for {
-		// get input
-		//text := pterm.DefaultInput.WithLabel("Say something: ").WithDefaultText("Hello, I'm a bot!").WithPreviewWindow().WithPointer(">").WithPointerStyle(pterm.NewStyle(pterm.FgLightCyan)).WithHideOrder().WithHideCursor().WithRemoveWh
+		// get input from command line
+		text, _ := pterm.DefaultInteractiveTextInput.WithDefaultText("~>").Show()
 		// send the message to the bot
-		//cli.OnMessage(*Conversation.NewMessage(Lib.CleanString(text), cli.User))
+		cli.OnMessage(*Conversation.NewMessage(Lib.CleanString(text), cli.User))
 
 	}
 }

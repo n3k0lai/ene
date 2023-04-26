@@ -2,10 +2,7 @@ module github.com/n3k0lai/ene
 
 go 1.19
 
-require (
-	github.com/pterm/pterm v0.12.58
-	github.com/sashabaranov/go-openai v1.7.0
-)
+require github.com/sashabaranov/go-openai v1.7.0
 
 require (
 	atomicgo.dev/cursor v0.1.1 // indirect
@@ -14,9 +11,10 @@ require (
 	github.com/gookit/color v1.5.3 // indirect
 	github.com/lithammer/fuzzysearch v1.1.5 // indirect
 	github.com/mattn/go-runewidth v0.0.14 // indirect
+	github.com/pterm/pterm v0.12.59 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/xo/terminfo v0.0.0-20220910002029-abceb7e1c41e // indirect
 	golang.org/x/sys v0.6.0 // indirect
 	golang.org/x/term v0.6.0 // indirect
-	golang.org/x/text v0.8.0 // indirect
+	golang.org/x/text v0.9.0 // indirect
 )
