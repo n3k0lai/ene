@@ -2,8 +2,6 @@ package Adapters
 
 import (
 	Conversation "github.com/n3k0lai/ene/internal/conversation"
-	//Bot "github.com/n3k0lai/ene/cmd"
-	//CliAdapter "github.com/n3k0lai/ene/internal/adapters/cli"
 )
 
 type IAdapter interface {
@@ -13,10 +11,13 @@ type IAdapter interface {
 	// Closes a connection to the Twitch.tv IRC chat server.
 	//Disconnect()
 
+	// Gets the conversations from the connected channel
+	GetConvos() []*Conversation.Conversation
+
 	Send(m Conversation.Message)
 	//Respond(m core.Message, c core.Conversation)
 	OnMessage(m Conversation.Message)
-
+	GetName() string
 	// Listens to chat messages and PING request from the IRC server.
 	//HandleChat() error
 
@@ -55,4 +56,8 @@ func NewAdapter(t AdapterType, n string) *Adapter {
 		Type: t,
 		Name: n,
 	}
+}
+
+func (a *Adapter) GetName() string {
+	return a.Name
 }

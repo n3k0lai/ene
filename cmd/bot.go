@@ -1,11 +1,10 @@
 package Bot
 
 import (
-	"fmt"
-
 	Adapters "github.com/n3k0lai/ene/internal/adapters"
 	Adapter "github.com/n3k0lai/ene/internal/adapters/adapter"
 	Conversation "github.com/n3k0lai/ene/internal/conversation"
+	Lib "github.com/n3k0lai/ene/internal/lib"
 	Plugins "github.com/n3k0lai/ene/internal/plugins"
 	Plugin "github.com/n3k0lai/ene/internal/plugins/plugin"
 	Users "github.com/n3k0lai/ene/internal/users"
@@ -33,17 +32,37 @@ func NewBot(config BotConfig) *Bot {
 
 	return &Bot{
 		ActiveAdapters: Adapters.GetAdapters(config.Adapters, *botUser),
-		ActivePlugins:  Plugins.GetPlugins(config.Plugins),
+		ActivePlugins:  Plugins.GetPlugins(config.Plugins, botUser),
 	}
 }
 
 func (b *Bot) Start() error {
-	fmt.Println("Starting bot...")
+	Lib.GetPrefix().Printfln(Lib.GetBootMessage())
 	// start adapters
 	for _, val := range b.ActiveAdapters {
 		val.Start()
 	}
-	return nil
+
+	// bot loop goroutine
+	//go func() {
+	for {
+		// get conversations from adapters
+		for _, adapter := range b.ActiveAdapters {
+			Lib.GetPrefix().Printfln("Getting conversations from %s", adapter.GetName())
+			// get conversations from adapter
+			conversations := adapter.GetConvos()
+			// handle conversations
+
+			for _, convo := range conversations {
+				Lib.GetPrefix().Printfln("Handling conversation from %s", adapter.GetName())
+				// handle conversations
+				b.HandleConversation(convo, adapter)
+			}
+		}
+	}
+	//}()
+
+	//select {}
 }
 
 func (b *Bot) GetConnectMessage() Conversation.Message {
@@ -54,16 +73,19 @@ func (b *Bot) GetConnectMessage() Conversation.Message {
 
 }
 
-func (b *Bot) HandleMessage(m Conversation.Message) Conversation.Conversation {
-	c := Conversation.Conversation{
-		//Adapter:  m.Adapter,
-		Messages: []Conversation.Message{m},
+func (b *Bot) HandleConversation(c *Conversation.Conversation, a Adapter.IAdapter) *Conversation.Conversation {
+	c = b.Converse(c)
+
+	// send latest message from bot to adapter
+	latestMessage := c.GetLatestMessage()
+	if latestMessage.User != b.BotUser {
+		a.Send(*latestMessage)
 	}
-	b.Converse(c)
+
 	return c
 }
 
-func (b *Bot) Converse(c Conversation.Conversation) Conversation.Conversation {
+func (b *Bot) Converse(c *Conversation.Conversation) *Conversation.Conversation {
 
 	// get latest message
 	latestMessage := c.Messages[len(c.Messages)-1]
@@ -71,7 +93,8 @@ func (b *Bot) Converse(c Conversation.Conversation) Conversation.Conversation {
 
 	for _, plugin := range b.ActivePlugins {
 		if plugin.Test(latestMessage.Text) {
-			//c.Plugin = plugin
+			// run plugin
+			c = plugin.Converse(c)
 			break
 		}
 	}

@@ -10,7 +10,8 @@ import (
 
 type CliAdapter struct {
 	*Adapter.Adapter
-	User Users.User
+	User          Users.User
+	Conversations []*Conversation.Conversation
 }
 
 func NewCliAdapter(user Users.User) *CliAdapter {
@@ -19,27 +20,24 @@ func NewCliAdapter(user Users.User) *CliAdapter {
 			Type:   Adapter.CliAdapterType,
 			Typing: false,
 			Name:   "cli",
-			//Bot:    bot,
 		},
 		User: user,
 	}
 }
 
 func (cli *CliAdapter) Send(m Conversation.Message) {
-	pterm.Info.WithPrefix(pterm.Prefix{
-		Text:  "ene",
-		Style: pterm.NewStyle(pterm.FgLightCyan, pterm.BgBlack, pterm.Bold),
-	}).Printfln("You sent: %s", m.Text)
+	Lib.GetPrefix().Printfln(m.Text)
+}
+
+func (cli *CliAdapter) GetConvos() []*Conversation.Conversation {
+	return cli.Conversations
 }
 
 func (cli *CliAdapter) OnMessage(m Conversation.Message) {
-
-	// send the message to the bot
-
-	// make a new conversation
-	//cli.Adapter.Bot.HandleMessage(m)
-	cli.Send(m)
-
+	// create conversation from message
+	cli.Conversations = append(cli.Conversations, Conversation.NewConversation(m))
+	//print current conversations to cli
+	Lib.GetPrefix().Printfln(m.Text)
 }
 
 // Attempts to keep the bot connected and handling chat.

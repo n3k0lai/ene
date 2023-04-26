@@ -25,15 +25,16 @@ Ene is divided into three parts:
   - [ ] tts
 * plugins
   - [ ] trivia
-  - [ ] emotes
-    - [ ] ffz
-    - [ ] bttv
-    - [ ] 7tv
   - [ ] spam
-  - [ ] chatgpt
   - [ ] quotes
   - [ ] tarot
+  - [ ] gpt
   - [ ] mahjong
   - [ ] chinese dictionary
 * lib 
   - [ ] database
+  - [ ] chatgpt
+  - [ ] emotes
+    - [ ] ffz
+    - [ ] bttv
+    - [ ] 7tv

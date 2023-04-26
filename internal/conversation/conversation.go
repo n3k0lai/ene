@@ -1,16 +1,9 @@
 package Conversation
 
-import (
-	//Adapters "github.com/n3k0lai/ene/internal/adapters"
-	//Plugins "github.com/n3k0lai/ene/internal/plugins"
-)
+import Users "github.com/n3k0lai/ene/internal/users"
 
 type Conversation struct {
 	Messages []Message
-	Typing   bool
-	
-	//Plugin   Plugins.IPlugin
-	//Adapter  Adapters.IAdapter
 }
 
 func NewConversation(m Message) *Conversation {
@@ -19,22 +12,21 @@ func NewConversation(m Message) *Conversation {
 	}
 }
 
-func (c *Conversation) OnMessage(m Message) {
-	if c.Typing {
-		c.StopAnswer()
+func (c *Conversation) OnMessage(m *Message) *Conversation {
+
+	c.Messages = append(c.Messages, *m)
+	return c
+}
+
+func (c *Conversation) GetLatestMessage() *Message {
+	return &c.Messages[len(c.Messages)-1]
+}
+
+func (c *Conversation) GetLatestMessageFromUser(user Users.User) *Message {
+	for i := len(c.Messages) - 1; i >= 0; i-- {
+		if c.Messages[i].User == user {
+			return &c.Messages[i]
+		}
 	}
-
-	c.Messages = append(c.Messages, m)
-	c.Respond()
-}
-
-func (c *Conversation) StopAnswer() {
-	c.Typing = false
-	// TODO: send kill signal to adapter
-}
-
-func (c *Conversation) Respond() {
-	c.Typing = true
-	//var res Message
-	//c.Adapter.Respond(res, *c)
+	return nil
 }

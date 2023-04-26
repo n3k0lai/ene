@@ -10,3 +10,4 @@ himbo.toml
 .DS_Store
 *~
 *.swp
+/dev
