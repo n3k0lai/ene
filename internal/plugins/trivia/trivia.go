@@ -13,37 +13,47 @@ type Trivia struct {
 	*Plugin.Plugin
 	Questions      []Question
 	ActiveQuestion Question
+	Asking         bool
 }
 
 func NewTrivia(bu *Users.User) *Trivia {
 	rand.Seed(time.Now().UnixNano())
+	questions := []Question{
+		*NewQuestion("What is the capital of the United States?", "Washington, D.C.", 30, 0.5),
+		*NewQuestion("What is the capital of Canada?", "Ottawa", 30, 0.5),
+		*NewQuestion("What is the capital of Mexico?", "Mexico City", 30, 0.5),
+	}
 	return &Trivia{
 		Plugin: &Plugin.Plugin{
 			Name:    "trivia",
 			BotUser: *bu,
 		},
-		Questions: []Question{},
+		Questions: questions,
+		Asking:    false,
 	}
 }
 
-func (t *Trivia) Test(query string) bool {
-	if t.ActiveQuestion.Solved {
-		if query == "!trivia" {
-			// ask question
-			t.ActiveQuestion = t.GetQuestion()
-			t.ActiveQuestion.Ask()
+func (t *Trivia) Test(c Conversation.Conversation) bool {
+	if !t.Asking {
+		if c.GetLatestMessage().Text == "!trivia" {
 			return true
 		} else {
 			return false
 		}
 	}
 
-	return t.ActiveQuestion.AddQuery(query)
+	return t.ActiveQuestion.AddQuery(c.GetLatestMessage())
 }
 
-func (t *Trivia) Converse(c *Conversation.Conversation) *Conversation.Conversation {
-	//add a test message to the conversation
-	c.OnMessage(Conversation.NewMessage("trivia response", t.BotUser))
+func (t *Trivia) Converse(c Conversation.Conversation) Conversation.Conversation {
+	if !t.Asking {
+		// ask question
+		t.ActiveQuestion = t.GetQuestion()
+		t.Asking = true
+		questionText := t.ActiveQuestion.Ask()
+		c.OnMessage(Conversation.NewMessage(questionText, t.BotUser))
+	}
+
 	return c
 }
 

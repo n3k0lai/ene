@@ -5,6 +5,7 @@ import (
 	Spam "github.com/n3k0lai/ene/internal/plugins/spam"
 	Trivia "github.com/n3k0lai/ene/internal/plugins/trivia"
 	Users "github.com/n3k0lai/ene/internal/users"
+	"github.com/pterm/pterm"
 	//Tarot "github.com/n3k0lai/ene/internal/plugins/tarot"
 )
 
@@ -24,5 +25,7 @@ func GetPlugins(pluginList []string, botUser *Users.User) []Plugin.IPlugin {
 			//	plugins = append(plugins, NewTarot())
 		}
 	}
+
+	pterm.Info.Printf("Loaded %d plugins\n", len(plugins))
 	return plugins
 }

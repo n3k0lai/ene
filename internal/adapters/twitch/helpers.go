@@ -1,5 +1,4 @@
-package Lib
-
+package Twitch
 import (
 	"regexp"
 	"time"

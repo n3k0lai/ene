@@ -2,6 +2,7 @@ package Adapters
 
 import (
 	Conversation "github.com/n3k0lai/ene/internal/conversation"
+	Users "github.com/n3k0lai/ene/internal/users"
 )
 
 type IAdapter interface {
@@ -12,11 +13,10 @@ type IAdapter interface {
 	//Disconnect()
 
 	// Gets the conversations from the connected channel
-	GetConvos() []*Conversation.Conversation
+	//GetConvoStream() <-chan Conversation.Conversation
 
-	Send(m Conversation.Message)
+	Send(c Conversation.Conversation)
 	//Respond(m core.Message, c core.Conversation)
-	OnMessage(m Conversation.Message)
 	GetName() string
 	// Listens to chat messages and PING request from the IRC server.
 	//HandleChat() error
@@ -31,7 +31,7 @@ type IAdapter interface {
 	//Say(msg string) error
 
 	// Attempts to keep the bot connected and handling chat.
-	Start()
+	Start() AdapterStreams
 }
 
 type AdapterType int64
@@ -46,9 +46,16 @@ const (
 )
 
 type Adapter struct {
-	Typing bool
-	Type   AdapterType
-	Name   string
+	Typing       bool
+	Type         AdapterType
+	Name         string
+	BotUser      Users.User
+	ConvoStream  <-chan Conversation.Conversation
+	OutputStream chan<- Conversation.Conversation
+}
+type AdapterStreams struct {
+	ConvoStream  <-chan Conversation.Conversation
+	OutputStream chan<- Conversation.Conversation
 }
 
 func NewAdapter(t AdapterType, n string) *Adapter {

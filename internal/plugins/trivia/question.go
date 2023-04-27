@@ -2,31 +2,33 @@ package Trivia
 
 import (
 	"time"
+
+	Conversation "github.com/n3k0lai/ene/internal/conversation"
 )
 
 type Question struct {
 	Text         string
 	Answer       string
-	Timer        *time.Timer
+	Timer        time.Timer
 	Queries      []Answer
 	Solved       bool
 	Limit        float64
 	SecondsLimit int
 	Expired      bool
-	LastAsked    *time.Time
+	LastAsked    time.Time
 }
 
 func NewQuestion(text string, answer string, secondsLimit int, percentageLimit float64) *Question {
 	return &Question{
 		Text:         text,
 		Answer:       answer,
-		Timer:        nil,
+		Timer:        time.Timer{},
 		Queries:      []Answer{},
 		Solved:       false,
 		Expired:      false,
 		Limit:        percentageLimit,
 		SecondsLimit: secondsLimit,
-		LastAsked:    nil,
+		LastAsked:    time.Time{},
 	}
 }
 
@@ -34,30 +36,40 @@ func (q *Question) Reset() {
 	q.Queries = []Answer{}
 	q.Solved = false
 	q.Expired = false
-	q.Timer = nil
+	q.Timer = time.Timer{}
 }
 
-func (q *Question) Ask() {
+func (q *Question) Ask() string {
 	q.Reset()
-	*q.LastAsked = time.Now()
-	q.Timer = time.NewTimer(time.Second * time.Duration(q.SecondsLimit))
+	q.LastAsked = time.Now()
+	q.Timer = *time.NewTimer(time.Second * time.Duration(q.SecondsLimit))
+	// set timer for end
 	go func() {
 		<-q.Timer.C
-		// hint
 		if q.Solved {
 			return
 		}
 		q.Expired = true
 	}()
 
-	// say question
+	// set timer for hint
+	go func() {
+		<-time.After(time.Second * time.Duration(q.SecondsLimit/2))	
+		if q.Solved {
+			return
+		}
+		// send hint
+	}()
+
+	// say questionp
+	return q.Text
 }
 
-func (q *Question) AddQuery(query string) bool {
+func (q *Question) AddQuery(m Conversation.Message) bool {
 	if q.Solved || q.Expired {
 		return false
 	}
-	answer := *NewAnswer(query, q.Answer)
+	answer := *NewAnswer(m.Text, q.Answer)
 	if answer.Percentage < q.Limit {
 		q.Solved = true
 		answer.Winner = true

@@ -10,38 +10,30 @@ import (
 
 type CliAdapter struct {
 	*Adapter.Adapter
-	User          Users.User
+	ConsoleUser   Users.User
 	Conversations []*Conversation.Conversation
 }
 
-func NewCliAdapter(user Users.User) *CliAdapter {
+func NewCliAdapter(botUser Users.User, consoleUser Users.User) *CliAdapter {
 	return &CliAdapter{
 		Adapter: &Adapter.Adapter{
-			Type:   Adapter.CliAdapterType,
-			Typing: false,
-			Name:   "cli",
+			Type:    Adapter.CliAdapterType,
+			Typing:  false,
+			Name:    "cli",
+			BotUser: botUser,
 		},
-		User: user,
+		ConsoleUser: consoleUser,
 	}
 }
 
-func (cli *CliAdapter) Send(m Conversation.Message) {
-	Lib.GetPrefix().Printfln(m.Text)
-}
-
-func (cli *CliAdapter) GetConvos() []*Conversation.Conversation {
-	return cli.Conversations
-}
-
-func (cli *CliAdapter) OnMessage(m Conversation.Message) {
-	// create conversation from message
-	cli.Conversations = append(cli.Conversations, Conversation.NewConversation(m))
-	//print current conversations to cli
-	Lib.GetPrefix().Printfln(m.Text)
+func (cli *CliAdapter) Send(c Conversation.Conversation) {
+	Lib.GetPluginPrefix(c.GetPluginUsed()).Printfln(c.GetLatestMessage().Text)
 }
 
 // Attempts to keep the bot connected and handling chat.
-func (cli *CliAdapter) Start() {
+func (cli *CliAdapter) Start() Adapter.AdapterStreams {
+	convoStream := make(chan Conversation.Conversation)
+	outputStream := make(chan Conversation.Conversation)
 	pterm.Info.Printfln("cli adapter started")
 	//logPanel := pterm.DefaultBox.WithTitle("logs").Sprint()
 	//for i := 0; i < 100; i++ {
@@ -54,12 +46,27 @@ func (cli *CliAdapter) Start() {
 	//	//{{Data: panel3}},
 	//}).Srender()
 	//pterm.DefaultBox.WithTitle("ene").Println(panels)
-	//reader := bufio.NewReader(os.Stdin)
-	for {
-		// get input from command line
-		text, _ := pterm.DefaultInteractiveTextInput.WithDefaultText("~>").Show()
-		// send the message to the bot
-		cli.OnMessage(*Conversation.NewMessage(Lib.CleanString(text), cli.User))
 
+	// initialize input stream
+	go func() {
+		for {
+			// get input from command line
+			text, _ := pterm.DefaultInteractiveTextInput.WithDefaultText("~>").Show()
+			// create a conversation from the input
+			convoStream <- *Conversation.NewConversation(*Conversation.NewMessage(text, cli.ConsoleUser), cli.Name)
+			// loading indicator
+			//spinner, _ := pterm.DefaultSpinner.Start("Loading...")
+			convo := <-outputStream
+			if convo.GetLatestMessage().User == cli.BotUser {
+				cli.Send(convo)
+			}
+		}
+	}()
+	cli.ConvoStream = convoStream
+	cli.OutputStream = outputStream
+
+	return Adapter.AdapterStreams{
+		ConvoStream:  convoStream,
+		OutputStream: outputStream,
 	}
 }

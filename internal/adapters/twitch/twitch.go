@@ -1,1 +1,1 @@
-package TwitchAdapter
+package Twitch

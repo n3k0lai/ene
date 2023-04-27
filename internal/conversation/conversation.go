@@ -3,12 +3,15 @@ package Conversation
 import Users "github.com/n3k0lai/ene/internal/users"
 
 type Conversation struct {
-	Messages []Message
+	Messages    []Message
+	PluginUsed  string
+	AdapterUsed string
 }
 
-func NewConversation(m Message) *Conversation {
+func NewConversation(m Message, adapterUsed string) *Conversation {
 	return &Conversation{
-		Messages: []Message{m},
+		Messages:    []Message{m},
+		AdapterUsed: adapterUsed,
 	}
 }
 
@@ -18,8 +21,8 @@ func (c *Conversation) OnMessage(m *Message) *Conversation {
 	return c
 }
 
-func (c *Conversation) GetLatestMessage() *Message {
-	return &c.Messages[len(c.Messages)-1]
+func (c *Conversation) GetLatestMessage() Message {
+	return c.Messages[len(c.Messages)-1]
 }
 
 func (c *Conversation) GetLatestMessageFromUser(user Users.User) *Message {
@@ -29,4 +32,12 @@ func (c *Conversation) GetLatestMessageFromUser(user Users.User) *Message {
 		}
 	}
 	return nil
+}
+
+func (c *Conversation) GetPluginUsed() string {
+	return c.PluginUsed
+}
+
+func (c *Conversation) SetPluginUsed(plugin string) {
+	c.PluginUsed = plugin
 }

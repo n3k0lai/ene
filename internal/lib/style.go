@@ -9,6 +9,13 @@ func GetPrefix() *pterm.PrefixPrinter {
 	})
 }
 
+func GetPluginPrefix(pluginName string) *pterm.PrefixPrinter {
+	return pterm.Info.WithPrefix(pterm.Prefix{
+		Text:  "ene:" + pluginName,
+		Style: GetStyle(),
+	})
+}
+
 func GetStyle() *pterm.Style {
 	return pterm.NewStyle(pterm.FgLightCyan, pterm.BgBlack, pterm.Bold)
 }

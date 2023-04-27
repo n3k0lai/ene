@@ -16,7 +16,7 @@ Ene is divided into three parts:
 ### Goals
 
 * adapters
-  - [ ] cli
+  - [x] cli
   - [ ] twitch
   - [ ] openai
   - [ ] discord
@@ -25,7 +25,7 @@ Ene is divided into three parts:
   - [ ] tts
 * plugins
   - [ ] trivia
-  - [ ] spam
+  - [x] spam
   - [ ] quotes
   - [ ] tarot
   - [ ] gpt

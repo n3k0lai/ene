@@ -6,13 +6,17 @@ import (
 )
 
 type IPlugin interface {
-	Test(query string) bool
-	Converse(c *Conversation.Conversation) *Conversation.Conversation
-
+	Test(c Conversation.Conversation) bool
+	Converse(c Conversation.Conversation) Conversation.Conversation
+	GetName() string
 	Reset()
 }
 
 type Plugin struct {
 	Name    string
 	BotUser Users.User
+}
+
+func (p *Plugin) GetName() string {
+	return p.Name
 }

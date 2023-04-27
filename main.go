@@ -7,7 +7,7 @@ import (
 func main() {
 	ene := Bot.NewBot(Bot.BotConfig{
 		Adapters: []string{"cli"},
-		Plugins:  []string{"trivia"},
+		Plugins:  []string{"trivia", "spam"},
 	})
 
 	ene.Start()

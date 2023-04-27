@@ -6,6 +6,8 @@ type User struct {
 	AvatarUrl   string
 }
 
-func NewUser() *User {
-	return &User{}
+func NewUser(username string) *User {
+	return &User{
+		Username: username,
+	}
 }
