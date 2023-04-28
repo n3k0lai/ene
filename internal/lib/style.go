@@ -7,7 +7,7 @@ func GetPrefix() *pterm.PrefixPrinter {
 		pterm.PrefixPrinter{},
 		pterm.Prefix{
 			Text:  "ene",
-			Style: GetStyle(),
+			Style: GetPrefixStyle(),
 		})
 }
 
@@ -18,14 +18,17 @@ func GetPluginPrefix(pluginName string) *pterm.PrefixPrinter {
 		pterm.PrefixPrinter{},
 		pterm.Prefix{
 			Text:  "ene:" + pluginName,
-			Style: GetStyle(),
+			Style: GetPrefixStyle(),
 		})
 }
 
-func GetStyle() *pterm.Style {
-	return pterm.NewStyle(pterm.FgWhite, pterm.BgBlue, pterm.Bold)
+func GetPrimaryTextStyle() *pterm.Style {
+	return pterm.NewStyle(pterm.FgBlue, pterm.Bold)
 }
 
+func GetPrefixStyle() *pterm.Style {
+	return pterm.NewStyle(pterm.FgWhite, pterm.BgBlue, pterm.Bold)
+}
 func GetBootMessage() string {
 	return `⠤⠤⠤⠤⠤⠤⢤⣄⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 	⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠙⠒⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠤⠤⠶⠶⠶⠦⠤⠤⠤⠤⠤⢤⣤⣀⣀⣀⣀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀

@@ -51,7 +51,7 @@ func (cli *CliAdapter) Start() Adapter.AdapterStreams {
 	go func() {
 		for {
 			// get input from command line
-			text, _ := pterm.DefaultInteractiveTextInput.WithDefaultText("~>").Show()
+			text, _ := pterm.DefaultInteractiveTextInput.WithDefaultText("~>").WithTextStyle(Lib.GetPrimaryTextStyle()).Show()
 			// create a conversation from the input
 			convoStream <- *Conversation.NewConversation(*Conversation.NewMessage(text, cli.ConsoleUser), cli.Name)
 			// loading indicator
