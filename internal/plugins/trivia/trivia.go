@@ -54,6 +54,19 @@ func (t *Trivia) Converse(c Conversation.Conversation) Conversation.Conversation
 		c.OnMessage(Conversation.NewMessage(questionText, t.BotUser))
 	}
 
+	if !t.ActiveQuestion.Solved {
+
+		if t.ActiveQuestion.Expired {
+			t.ActiveQuestion.Solved = true
+			c.OnMessage(Conversation.NewMessage("Time's up! The answer was: "+t.ActiveQuestion.Answer, t.BotUser))
+			t.Asking = false
+
+		}
+	} else {
+		c.OnMessage(Conversation.NewMessage("Correct! The answer was: "+t.ActiveQuestion.Answer, t.BotUser))
+		t.Asking = false
+	}
+
 	return c
 }
 
