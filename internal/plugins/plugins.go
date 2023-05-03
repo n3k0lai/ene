@@ -1,11 +1,11 @@
 package Plugins
 
 import (
+	Lib "github.com/n3k0lai/ene/internal/lib"
 	Plugin "github.com/n3k0lai/ene/internal/plugins/plugin"
 	Spam "github.com/n3k0lai/ene/internal/plugins/spam"
 	Trivia "github.com/n3k0lai/ene/internal/plugins/trivia"
 	Users "github.com/n3k0lai/ene/internal/users"
-	"github.com/pterm/pterm"
 	//Tarot "github.com/n3k0lai/ene/internal/plugins/tarot"
 )
 
@@ -26,6 +26,6 @@ func GetPlugins(pluginList []string, botUser *Users.User) []Plugin.IPlugin {
 		}
 	}
 
-	pterm.Info.Printf("Loaded %d plugins\n", len(plugins))
+	Lib.GetPrefix("cli", "core").Printf("Loaded %d plugins\n", len(plugins))
 	return plugins
 }

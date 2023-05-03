@@ -2,24 +2,29 @@ package Lib
 
 import "github.com/pterm/pterm"
 
-func GetPrefix() *pterm.PrefixPrinter {
-	return pterm.PrefixPrinter.WithPrefix(
-		pterm.PrefixPrinter{},
-		pterm.Prefix{
-			Text:  "ene",
-			Style: GetPrefixStyle(),
-		})
-}
-
-func GetPluginPrefix(pluginName string) *pterm.PrefixPrinter {
+func GetPrefix(adapterType string, pluginName string) *pterm.PrefixPrinter {
 	// get prefix printer
-	return pterm.PrefixPrinter.WithPrefix(
+	switch adapterType {
+	case "cli":
+		return pterm.PrefixPrinter.WithPrefix(
 
-		pterm.PrefixPrinter{},
-		pterm.Prefix{
-			Text:  "ene:" + pluginName,
-			Style: GetPrefixStyle(),
-		})
+			pterm.PrefixPrinter{},
+			pterm.Prefix{
+				Text:  "ene:" + pluginName,
+				Style: GetPrefixStyle(),
+			})
+	case "twitch":
+		return pterm.PrefixPrinter.WithPrefix(
+			pterm.PrefixPrinter{},
+			pterm.Prefix{
+				Text:  "twitch:" + pluginName,
+				Style: pterm.NewStyle(pterm.FgWhite, pterm.BgMagenta, pterm.Bold),
+			})
+	}
+	return pterm.Error.WithPrefix(pterm.Prefix{
+		Text:  "error:" + adapterType + ":" + pluginName,
+		Style: pterm.NewStyle(pterm.FgWhite, pterm.BgRed, pterm.Bold),
+	})
 }
 
 func GetPrimaryTextStyle() *pterm.Style {
@@ -42,6 +47,5 @@ func GetBootMessage() string {
 	⠀⠀⠀⠀⠸⣇⡀⠀⠑⢄⠀⠀⠀⡠⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢖⠠⠤⠤⠔⠙⠻⠿⠋⠱⡑⢄⠀⢠⠟⠀⠀⠀⠀⠀⠀
 	⠀⠀⠀⠀⠀⠀⠈⠉⠒⠒⠻⠶⠛⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡄⠀⠀⠀⠀⠀⠀⠀⠀⠡⢀⡵⠃⠀⠀⠀⠀⠀⠀⠀
 	⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠦⣀⠀⠀⠀⠀⠀⢀⣤⡟⠉⠀⠀⠀⠀⠀⠀⠀⠀
-	⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠉⠉⠙⠛⠓⠒⠲⠿⢍⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-`
+	⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠉⠉⠙⠛⠓⠒⠲⠿⢍⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`
 }

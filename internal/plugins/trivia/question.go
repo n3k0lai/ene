@@ -1,21 +1,24 @@
 package Trivia
 
 import (
+	"strings"
 	"time"
 
 	Conversation "github.com/n3k0lai/ene/internal/conversation"
 )
 
 type Question struct {
-	Text         string
-	Answer       string
-	Timer        time.Timer
-	Queries      []Answer
-	Solved       bool
-	Limit        float64
-	SecondsLimit int
-	Expired      bool
-	LastAsked    time.Time
+	Text           string
+	Answer         string
+	Timer          time.Timer
+	QueryStream    <-chan Conversation.Message
+	ResponseStream chan<- string
+	Queries        []Answer
+	Solved         bool
+	Limit          float64
+	SecondsLimit   int
+	Expired        bool
+	LastAsked      time.Time
 }
 
 func NewQuestion(text string, answer string, secondsLimit int, percentageLimit float64) *Question {
@@ -23,7 +26,7 @@ func NewQuestion(text string, answer string, secondsLimit int, percentageLimit f
 		Text:         text,
 		Answer:       answer,
 		Timer:        time.Timer{},
-		Queries:      []Answer{},
+		QueryStream:  make(chan Conversation.Message),
 		Solved:       false,
 		Expired:      false,
 		Limit:        percentageLimit,
@@ -33,34 +36,37 @@ func NewQuestion(text string, answer string, secondsLimit int, percentageLimit f
 }
 
 func (q *Question) Reset() {
-	q.Queries = []Answer{}
 	q.Solved = false
 	q.Expired = false
 	q.Timer = time.Timer{}
 }
+func (q *Question) Alert(msg string) {
+	// send alert
+	q.ResponseStream <- msg
 
-func (q *Question) Ask() string {
+}
+func (q *Question) Ask(responseStream chan<- string) string {
 	q.Reset()
+	q.ResponseStream = responseStream
 	q.LastAsked = time.Now()
-	q.Timer = *time.NewTimer(time.Second * time.Duration(q.SecondsLimit))
-	// set timer for end
-	go func() {
-		<-q.Timer.C
-		if q.Solved {
-			return
+	select {
+	case query := <-q.QueryStream:
+		if !q.Solved && !q.Expired {
+			q.AddQuery(query)
 		}
-		q.Expired = true
-	}()
-
-	// set timer for hint
-	go func() {
-		<-time.After(time.Second * time.Duration(q.SecondsLimit/2))	
-		if q.Solved {
-			return
+	case <-time.After(time.Duration(q.SecondsLimit/2) * time.Second):
+		if !q.Solved && !q.Expired {
+			// send hint
+			q.Alert("Hint: " + q.Answer[0:1] + strings.Repeat("*", len(q.Answer)-1))
 		}
-		// send hint
-	}()
+	case <-time.After(time.Duration(q.SecondsLimit) * time.Second):
+		if !q.Solved {
+			q.Expired = true
 
+			// notify of loss
+			q.Alert("Time's up! The answer was: " + q.Answer)
+		}
+	}
 	// say questionp
 	return q.Text
 }
@@ -75,6 +81,7 @@ func (q *Question) AddQuery(m Conversation.Message) bool {
 		answer.Winner = true
 
 		// notify of win
+		q.Alert("Winner: @" + m.User.Username + ": " + m.Text)
 
 		q.Reset()
 

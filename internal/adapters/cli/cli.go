@@ -27,14 +27,14 @@ func NewCliAdapter(botUser Users.User, consoleUser Users.User) *CliAdapter {
 }
 
 func (cli *CliAdapter) Send(c Conversation.Conversation) {
-	Lib.GetPluginPrefix(c.GetPluginUsed()).Printfln(c.GetLatestMessage().Text)
+	Lib.GetPrefix(cli.Name, c.GetPluginUsed()).Printfln(c.GetLatestMessage().Text)
 }
 
 // Attempts to keep the bot connected and handling chat.
 func (cli *CliAdapter) Start() Adapter.AdapterStreams {
 	convoStream := make(chan Conversation.Conversation)
 	outputStream := make(chan Conversation.Conversation)
-	pterm.Info.Printfln("cli adapter started")
+	Lib.GetPrefix(cli.Name, "cli").Printfln("cli adapter started")
 	//logPanel := pterm.DefaultBox.WithTitle("logs").Sprint()
 	//for i := 0; i < 100; i++ {
 	//	logPanel.Write(fmt.Sprintf("Log message %d\n", i))

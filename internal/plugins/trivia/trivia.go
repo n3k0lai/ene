@@ -14,6 +14,7 @@ type Trivia struct {
 	Questions      []Question
 	ActiveQuestion Question
 	Asking         bool
+	ResponseStream chan<- string
 }
 
 func NewTrivia(bu *Users.User) *Trivia {
@@ -30,6 +31,7 @@ func NewTrivia(bu *Users.User) *Trivia {
 		},
 		Questions: questions,
 		Asking:    false,
+		ResponseStream: make(chan string),
 	}
 }
 
@@ -50,7 +52,7 @@ func (t *Trivia) Converse(c Conversation.Conversation) Conversation.Conversation
 		// ask question
 		t.ActiveQuestion = t.GetQuestion()
 		t.Asking = true
-		questionText := t.ActiveQuestion.Ask()
+		questionText := t.ActiveQuestion.Ask(t.ResponseStream)
 		c.OnMessage(Conversation.NewMessage(questionText, t.BotUser))
 	}
 

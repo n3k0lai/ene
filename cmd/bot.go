@@ -22,17 +22,12 @@ type Bot struct {
 	BotUser        Users.User
 }
 
-type BotConfig struct {
-	Adapters []string
-	Plugins  []string
-}
-
-func NewBot(config BotConfig) *Bot {
-	Lib.GetPrefix().Printfln(Lib.GetBootMessage())
+func NewBot(config Lib.BotConfig) *Bot {
+	Lib.GetPrefix("cli", "core").Printfln(Lib.GetBootMessage())
 	botUser := Users.NewUser("ene")
 
 	return &Bot{
-		ActiveAdapters: Adapters.GetAdapters(config.Adapters, *botUser),
+		ActiveAdapters: Adapters.GetAdapters(config.Adapters, *botUser, config.Twitch),
 		ActivePlugins:  Plugins.GetPlugins(config.Plugins, botUser),
 	}
 }
@@ -41,7 +36,7 @@ func (b *Bot) Start() error {
 	// start adapters
 
 	for _, adapter := range b.ActiveAdapters {
-		Lib.GetPrefix().Printfln("Starting %s adapter", adapter.GetName())
+		Lib.GetPrefix("cli", adapter.GetName()).Printfln("Starting %s adapter", adapter.GetName())
 		adapterStreams := adapter.Start()
 
 		// bot loop goroutine

@@ -13,6 +13,7 @@ type IPlugin interface {
 }
 
 type Plugin struct {
+	*Conversation.Conversation
 	Name    string
 	BotUser Users.User
 }
