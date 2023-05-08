@@ -11,14 +11,14 @@ import (
 func GetAvailableAdapters() []string {
 	return []string{"cli", "twitch", "discord", "chatgpt", "extension", "twitter"}
 }
-func GetAdapters(adapterList []string, botUser Users.User, twitchConfig Lib.TwitchConfig) []Adapter.IAdapter {
+func GetAdapters(adapterList []string, botUser Users.User, twitchConfig Lib.TwitchConfig, botStyle Lib.StyleConfig) []Adapter.IAdapter {
 	var adapters []Adapter.IAdapter
 
 	consoleUser := Users.NewUser("n3k0")
 	for _, val := range adapterList {
 		switch val {
 		case "cli":
-			adapters = append(adapters, CliAdapter.NewCliAdapter(botUser, *consoleUser))
+			adapters = append(adapters, CliAdapter.NewCliAdapter(botUser, *consoleUser, botStyle))
 		case "twitch":
 			adapters = append(adapters, TwitchAdapter.NewTwitchAdapter(botUser, twitchConfig))
 			//case "discord":
@@ -32,6 +32,6 @@ func GetAdapters(adapterList []string, botUser Users.User, twitchConfig Lib.Twit
 		}
 	}
 
-	Lib.GetPrefix("cli", "core").Printf("Loaded %d adapters\n", len(adapters))
+	botStyle.GetPrefix("cli", "core").Printf("Loaded %d adapters\n", len(adapters))
 	return adapters
 }

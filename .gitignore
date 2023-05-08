@@ -1,6 +1,6 @@
 # do not upload your config files!
-waifu.toml
-himbo.toml
+.waifu
+.himbo
 
 
 # Ignore all logfiles and tempfiles.

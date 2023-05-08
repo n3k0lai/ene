@@ -13,7 +13,7 @@ func GetAvailablePlugins() []string {
 	return []string{"spam", "trivia", "tarot"}
 }
 
-func GetPlugins(pluginList []string, botUser *Users.User) []Plugin.IPlugin {
+func GetPlugins(pluginList []string, botUser *Users.User, botStyle Lib.StyleConfig) []Plugin.IPlugin {
 	var plugins []Plugin.IPlugin
 	for _, val := range pluginList {
 		switch val {
@@ -26,6 +26,6 @@ func GetPlugins(pluginList []string, botUser *Users.User) []Plugin.IPlugin {
 		}
 	}
 
-	Lib.GetPrefix("cli", "core").Printf("Loaded %d plugins\n", len(plugins))
+	botStyle.GetPrefix("cli", "core").Printf("Loaded %d plugins\n", len(plugins))
 	return plugins
 }

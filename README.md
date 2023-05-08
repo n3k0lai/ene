@@ -13,6 +13,17 @@ Ene is divided into three parts:
 * `/internal/adapters/`: Service Input and Output
 * `/internal/plugins/`: dynamic logic for handling input
 
+### running
+
+```bash
+# create your starter config
+cp ./.waifu.example.toml ./.waifu
+# edit your config file to add necessary details
+vim ./.waifu
+# run the bot
+go run ./main.go  
+```
+
 ### Goals
 
 * adapters

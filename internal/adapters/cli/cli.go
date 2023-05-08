@@ -12,9 +12,10 @@ type CliAdapter struct {
 	*Adapter.Adapter
 	ConsoleUser   Users.User
 	Conversations []*Conversation.Conversation
+	Style         Lib.StyleConfig
 }
 
-func NewCliAdapter(botUser Users.User, consoleUser Users.User) *CliAdapter {
+func NewCliAdapter(botUser Users.User, consoleUser Users.User, botStyle Lib.StyleConfig) *CliAdapter {
 	return &CliAdapter{
 		Adapter: &Adapter.Adapter{
 			Type:    Adapter.CliAdapterType,
@@ -23,18 +24,35 @@ func NewCliAdapter(botUser Users.User, consoleUser Users.User) *CliAdapter {
 			BotUser: botUser,
 		},
 		ConsoleUser: consoleUser,
+		Style:       botStyle,
 	}
 }
 
 func (cli *CliAdapter) Send(c Conversation.Conversation) {
-	Lib.GetPrefix(cli.Name, c.GetPluginUsed()).Printfln(c.GetLatestMessage().Text)
+	cli.Style.GetPrefix(cli.Name, c.GetPluginUsed()).Printfln(c.GetLatestMessage().Text)
+}
+
+func (cli *CliAdapter) GetPrefix(pluginName string, err bool) *pterm.PrefixPrinter {
+	// get prefix printer
+	if err {
+		return pterm.Error.WithPrefix(pterm.Prefix{
+			Text:  "error:" + cli.Style.Name + ":" + pluginName,
+			Style: pterm.NewStyle(pterm.FgWhite, pterm.BgRed, pterm.Bold),
+		})
+	}
+	return pterm.PrefixPrinter.WithPrefix(
+		pterm.PrefixPrinter{},
+		pterm.Prefix{
+			Text:  pterm.Sprintf("%v:%v", cli.Style.Name, pluginName),
+			Style: cli.Style.GetPrefixStyle(),
+		})
 }
 
 // Attempts to keep the bot connected and handling chat.
 func (cli *CliAdapter) Start() Adapter.AdapterStreams {
 	convoStream := make(chan Conversation.Conversation)
 	outputStream := make(chan Conversation.Conversation)
-	Lib.GetPrefix(cli.Name, "cli").Printfln("cli adapter started")
+	cli.Style.GetPrefix(cli.Name, "cli").Printfln("cli adapter started")
 	//logPanel := pterm.DefaultBox.WithTitle("logs").Sprint()
 	//for i := 0; i < 100; i++ {
 	//	logPanel.Write(fmt.Sprintf("Log message %d\n", i))
@@ -51,7 +69,7 @@ func (cli *CliAdapter) Start() Adapter.AdapterStreams {
 	go func() {
 		for {
 			// get input from command line
-			text, _ := pterm.DefaultInteractiveTextInput.WithDefaultText("~>").WithTextStyle(Lib.GetPrimaryTextStyle()).Show()
+			text, _ := pterm.DefaultInteractiveTextInput.WithDefaultText("~>").WithTextStyle(cli.Style.GetPrimaryTextStyle()).Show()
 			// create a conversation from the input
 			convoStream <- *Conversation.NewConversation(*Conversation.NewMessage(text, cli.ConsoleUser), cli.Name)
 			// loading indicator

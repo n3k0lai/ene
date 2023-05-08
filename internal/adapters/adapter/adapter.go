@@ -3,6 +3,7 @@ package Adapters
 import (
 	Conversation "github.com/n3k0lai/ene/internal/conversation"
 	Users "github.com/n3k0lai/ene/internal/users"
+	"github.com/pterm/pterm"
 )
 
 type IAdapter interface {
@@ -18,6 +19,7 @@ type IAdapter interface {
 	Send(c Conversation.Conversation)
 	//Respond(m core.Message, c core.Conversation)
 	GetName() string
+	GetPrefix(pluginName string, err bool) *pterm.PrefixPrinter
 	// Listens to chat messages and PING request from the IRC server.
 	//HandleChat() error
 

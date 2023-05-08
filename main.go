@@ -6,20 +6,8 @@ import (
 )
 
 func main() {
-	ene := Bot.NewBot(Lib.BotConfig{
-		Adapters: []string{"cli"},
-		Plugins:  []string{"trivia", "spam"},
-		Twitch: Lib.TwitchConfig{
-			UserName: "himboTTV",
-			Channels: []Lib.TwitchChannelConfig{
-				{
-					ChannelName: "n3k0lai",
-					Plugins:     []string{"trivia", "spam"},
-					OfflineOnly: false,
-				},
-			},
-		},
-	})
+	botConfig := Lib.GetConfig()
 
-	ene.Start()
+	bot := Bot.NewBot(botConfig)
+	bot.Start()
 }
